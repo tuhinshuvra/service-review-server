@@ -22,8 +22,8 @@ async function run() {
         }
 
         const review = {
-            name: 'Hari Om',
-            email: 'hari@bmail.com',
+            name: 'Jetendro Maharaj ',
+            email: 'jeten@bmail.com',
             review: 'Fine Service',
             rating: '4.7',
         }
