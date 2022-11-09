@@ -18,16 +18,16 @@ async function run() {
         const serviceCollections = client.db('serviceReview').collection('services');
         const userCollections = client.db('serviceReview').collection('users');
         const reviewCollections = client.db('serviceReview').collection('reviews');
-        const user = {
-            name: 'Jogendro nath', email: 'jogenndro@bmail.com'
-        }
+        // const user = {
+        //     name: 'Jogendro nath', email: 'jogenndro@bmail.com'
+        // }
 
-        const review = {
-            name: 'Jetendro Maharaj ',
-            email: 'jeten@bmail.com',
-            review: 'Fine Service',
-            rating: '4.7',
-        }
+        // const review = {
+        //     name: 'Jetendro Maharaj ',
+        //     email: 'jeten@bmail.com',
+        //     review: 'Fine Service',
+        //     rating: '4.7',
+        // }
         const userResult = await reviewCollections.insertOne(user);
         const reviewResult = await reviewCollections.insertOne(review);
 
