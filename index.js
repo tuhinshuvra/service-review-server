@@ -50,7 +50,18 @@ async function run() {
             res.send(reviews);
         })
 
-
+        // show all review by customer email
+        app.get('/reviewonmail', async (req, res) => {
+            let query = {};
+            if (req.query.email) {
+                query = {
+                    email: req.query.email
+                }
+            }
+            const cursor = reviewCollections.find(query).sort({ reviewPostDate: -1 });
+            const reviewonmail = await cursor.toArray();
+            res.send(reviewonmail);
+        })
 
         // app.get('/users', async (req, res) => {
         //     const query = {}
