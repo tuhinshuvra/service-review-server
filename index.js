@@ -23,13 +23,10 @@ async function run() {
         // }
 
         // const review = {
-        //     name: 'Jetendro Maharaj ',
-        //     email: 'jeten@bmail.com',
-        //     review: 'Fine Service',
-        //     rating: '4.7',
+        //     name: 'Jetendro Maharaj ', email: 'jeten@bmail.com',  review: 'Fine Service',  rating: '4.7',
         // }
-        const userResult = await reviewCollections.insertOne(user);
-        const reviewResult = await reviewCollections.insertOne(review);
+        // const userResult = await reviewCollections.insertOne(user);
+        // const reviewResult = await reviewCollections.insertOne(review);
 
         // show all services
         app.get('/services', async (req, res) => {
@@ -47,20 +44,19 @@ async function run() {
             res.send(service);
         })
 
-        app.get('/users', async (req, res) => {
-            const query = {}
-            const cursor = userCollections.find(query);
-            const user = await cursor.toArray();
-            res.send(user);
-        })
+        // app.get('/users', async (req, res) => {
+        //     const query = {}
+        //     const cursor = userCollections.find(query);
+        //     const user = await cursor.toArray();
+        //     res.send(user);
+        // })
 
-
-        app.get('/reviews', async (req, res) => {
-            const query = {}
-            const cursor = reviewCollections.find(query);
-            const review = await cursor.toArray();
-            res.send(review);
-        })
+        // app.get('/reviews', async (req, res) => {
+        //     const query = {}
+        //     const cursor = reviewCollections.find(query);
+        //     const review = await cursor.toArray();
+        //     res.send(review);
+        // })
     }
     finally {
 
