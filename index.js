@@ -17,7 +17,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         const serviceCollections = client.db('serviceReview').collection('services');
-        // const userCollections = client.db('serviceReview').collection('users');
         const reviewCollections = client.db('serviceReview').collection('reviews');
 
         // show all services
