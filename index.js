@@ -1,6 +1,7 @@
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const express = require('express');
 const cors = require('cors');
+const { query } = require('express');
 require('dotenv').config();
 
 const app = express();
@@ -35,6 +36,13 @@ async function run() {
             res.send(service);
         })
 
+        // save service on database
+        app.post('/services', async (req, res) => {
+            const service = req.body;
+            result = await serviceCollections.insertOne(service);
+            res.send(result);
+        })
+
         // save review on database
         app.post('/reviews', async (req, res) => {
             const review = req.body;
@@ -67,6 +75,43 @@ async function run() {
             const reviewOnMail = await cursor.toArray();
             res.send(reviewOnMail);
         })
+
+        // show reviews by id
+        app.get('/reviews/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const review = await reviewCollections.findOne(query);
+            res.send(review);
+        })
+
+        // delete review
+        app.delete('/reviews/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await reviewCollections.deleteOne(query);
+            res.send(result)
+        })
+
+        // update review
+        app.put('/reviews/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const review = req.body;
+            const option = { upsert: true };
+            const updatedReview = {
+                $set: {
+                    message: review.message,
+                }
+            }
+            const result = await reviewCollections.updateOne(filter, updatedReview, option);
+            res.send(result);
+        })
+
+        // app.put('/reviews/:id', (req, res) => {
+        //     const id = req.params.id;
+        //     const filter = { _id: ObjectId(id) };
+        // })
+
 
     }
     finally {
