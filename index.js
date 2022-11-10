@@ -16,7 +16,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         const serviceCollections = client.db('serviceReview').collection('services');
-        const userCollections = client.db('serviceReview').collection('users');
+        // const userCollections = client.db('serviceReview').collection('users');
         const reviewCollections = client.db('serviceReview').collection('reviews');
 
         // show all services
@@ -42,16 +42,21 @@ async function run() {
             res.send(result);
         })
 
-        // show all review
+        // show all review by service
         app.get('/reviews', async (req, res) => {
-            const query = {}
+            let query = {};
+            if (req.query.service) {
+                query = {
+                    service: req.query.service
+                }
+            }
             const cursor = reviewCollections.find(query).sort({ reviewPostDate: -1 });
             const reviews = await cursor.toArray();
             res.send(reviews);
         })
 
         // show all review by customer email
-        app.get('/reviewonmail', async (req, res) => {
+        app.get('/reviewmail', async (req, res) => {
             let query = {};
             if (req.query.email) {
                 query = {
@@ -59,16 +64,9 @@ async function run() {
                 }
             }
             const cursor = reviewCollections.find(query).sort({ reviewPostDate: -1 });
-            const reviewonmail = await cursor.toArray();
-            res.send(reviewonmail);
+            const reviewOnMail = await cursor.toArray();
+            res.send(reviewOnMail);
         })
-
-        // app.get('/users', async (req, res) => {
-        //     const query = {}
-        //     const cursor = userCollections.find(query);
-        //     const user = await cursor.toArray();
-        //     res.send(user);
-        // })
 
     }
     finally {
